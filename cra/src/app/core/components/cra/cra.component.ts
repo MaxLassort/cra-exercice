@@ -24,7 +24,7 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {FormsModule} from "@angular/forms";
 import {MatSelect} from "@angular/material/select";
-import {usersActions} from "../../../state/users/user.action";
+import {setUser, usersActions} from "../../../state/users/user.action";
 
 
 @Component({
@@ -118,7 +118,7 @@ export class CraComponent {
    */
   saveDays() {
     this.displayError = false
-    if (this.vacationDays.size + this.daysToUpdate.size > 7) {
+    if (this.vacationDays.size + this.daysToUpdate.size >= 8 && this.radioValue === this.radioValues[1]) {
       this.displayError = true;
       return
     }
@@ -139,8 +139,8 @@ export class CraComponent {
         times: {...time}
       };
 
-        this.store.dispatch(usersActions.updateTimes({user: updatedUser}))
-
+        this.store.dispatch(setUser({user: updatedUser}))
+        this.daysToUpdate.clear()
     }
     this.calendar()?.updateTodaysDate();
   }
@@ -158,8 +158,9 @@ export class CraComponent {
     if (this.activeUser) {
       this.dayWorkedSaved = this.activeUser.times.dayWorkedSaved
       this.vacationDays = this.activeUser.times.vacationDays
+
     }
-    this.daysToUpdate = new Set<string>();
+    this.daysToUpdate.clear();
   }
 
 
