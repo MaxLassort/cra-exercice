@@ -10,3 +10,5 @@ export const usersActions = createActionGroup({
   },
 });
 export const setUsers = createAction('[User/API] Set Users', props<{ users: User[] }>());
+export const setUser = createAction('[User/API] Set User', props<{ user: User }>());
+
