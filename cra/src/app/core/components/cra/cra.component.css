@@ -1,22 +1,30 @@
 :host {
   width: 100%;
 
-  .cra{
+  .cra {
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    & .cra__error{
+      color: red;
+      max-width: 100%;
+      text-align: center;
+    }
   }
-  .cra__calendar__box_container{
+
+  .cra__calendar__box_container {
     width: 100%;
     display: flex;
     flex-direction: column;
-    & .cra__calendar__box__with-text{
+
+    & .cra__calendar__box__with-text {
       display: flex;
       align-items: center;
     }
-    & .cra__calendar__box{
+
+    & .cra__calendar__box {
       margin: 0.5rem;
       width: 20px;
       height: 20px;
@@ -27,6 +35,7 @@
     & .vacation {
       background-color: var(--vacation);
     }
+
     & .worked {
       background-color: var(--tertiary);
     }
@@ -37,11 +46,13 @@
     min-width: 200px;
 
   }
-  .cra__radio{
-   display: flex;
+
+  .cra__radio {
+    display: flex;
     justify-content: center;
   }
-  .cra__select{
+
+  .cra__select {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -49,6 +60,14 @@
 
 
 }
+
+@media (min-width: 425px) {
+  .cra__calendar__box_container{
+    flex-direction: row !important;
+    justify-content: space-around;
+  }
+}
+
 @media (min-width: 768px) {
   :host {
     .cra {
@@ -56,43 +75,50 @@
       align-items: flex-start;
       justify-content: center;
       padding: 1rem 0 0 1rem;
-
     }
-    .cra__sub-menu{
+
+    .cra__sub-menu {
       align-self: flex-start;
       margin-right: 1rem;
-
     }
+
     .cra__calendar {
-      width: 55%;
+      width: 50%;
     }
 
     .cra__select {
       width: 100%;
-      & mat-form-field{
+
+      & mat-form-field {
         min-width: 250px;
       }
     }
   }
 }
+
 @media (min-width: 1024px) {
   :host {
-    .cra__sub-menu{
+
+    .cra__sub-menu {
       align-self: center;
       margin-right: 1rem;
       margin-top: 1rem;
 
     }
+
     .cra__calendar {
-      width: 33%;
+      width: 30%;
     }
 
     .cra__select {
       width: 100%;
-      & mat-form-field{
+
+      & mat-form-field {
         min-width: 300px;
       }
     }
   }
 }
+
+
 

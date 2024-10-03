@@ -22,19 +22,18 @@
 
       </mat-radio-group>
     </div>
+    @if (this.displayError){
+        <span class="cra__error"> Les agents ne se reposent pas autant </span>
+    }
   </div>
   <mat-card class="cra__calendar">
 
     <mat-calendar
-
       #calendar (selectedChange)="selectDates($event)"
       [dateClass]="dateClass"
       [maxDate]="this.maxDate"
       [minDate]="this.minDate"
       [startAt]="this.minDate"
-
-
-
     >
     </mat-calendar>
 
@@ -47,7 +46,6 @@
         <div class="cra__calendar__box worked"></div>
         <span>Mission</span>
       </div>
-
     </div>
       <button (click)="saveDays()" mat-raised-button>Enregistrer</button>
   </mat-card>

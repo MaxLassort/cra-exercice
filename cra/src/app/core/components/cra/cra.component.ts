@@ -72,6 +72,7 @@ export class CraComponent {
   daysToUpdate: Set<string> = new Set<string>();
   dayWorkedSaved: Set<string> = new Set<string>();
   vacationDays: Set<string> = new Set<string>();
+  displayError:boolean = false;
 
 
   dateClass = (date: Date): string => {
@@ -81,7 +82,7 @@ export class CraComponent {
     if (this.vacationDays.has(date.toISOString())) {
       return 'vacation'
     }
-    if (this.daysToUpdate.has(date.toISOString())) {
+    if (this.daysToUpdate.has(date.toISOString()) && this.activeUser) {
       return 'toSave'
     }
     return '';
@@ -116,7 +117,12 @@ export class CraComponent {
    * Fonction appelée pour sauvegarder les jours sélectionnés (travaillés ou congés)
    */
   saveDays() {
-    let toSave: string[] = [...this.daysToUpdate.values()];
+    this.displayError = false
+    if (this.vacationDays.size + this.daysToUpdate.size > 7) {
+      this.displayError = true;
+      return
+    }
+      let toSave: string[] = [...this.daysToUpdate.values()];
     // save to mission
     if (this.radioValue == this.radioValues[0]) {
       this.dayWorkedSaved = new Set([...this.dayWorkedSaved, ...toSave])
@@ -132,7 +138,9 @@ export class CraComponent {
         ...this.activeUser,
         times: {...time}
       };
-      this.store.dispatch(usersActions.updateTimes({user: updatedUser}))
+
+        this.store.dispatch(usersActions.updateTimes({user: updatedUser}))
+
     }
     this.calendar()?.updateTodaysDate();
   }
