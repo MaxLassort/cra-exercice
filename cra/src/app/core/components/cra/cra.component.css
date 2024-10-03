@@ -1,0 +1,98 @@
+:host {
+  width: 100%;
+
+  .cra{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+  }
+  .cra__calendar__box_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    & .cra__calendar__box__with-text{
+      display: flex;
+      align-items: center;
+    }
+    & .cra__calendar__box{
+      margin: 0.5rem;
+      width: 20px;
+      height: 20px;
+      /*border: solid black 1px;*/
+      border-radius: 1rem;
+    }
+
+    & .vacation {
+      background-color: var(--vacation);
+    }
+    & .worked {
+      background-color: var(--tertiary);
+    }
+  }
+
+  .cra__calendar {
+    width: 65%;
+    min-width: 200px;
+
+  }
+  .cra__radio{
+   display: flex;
+    justify-content: center;
+  }
+  .cra__select{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+
+}
+@media (min-width: 768px) {
+  :host {
+    .cra {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 1rem 0 0 1rem;
+
+    }
+    .cra__sub-menu{
+      align-self: flex-start;
+      margin-right: 1rem;
+
+    }
+    .cra__calendar {
+      width: 55%;
+    }
+
+    .cra__select {
+      width: 100%;
+      & mat-form-field{
+        min-width: 250px;
+      }
+    }
+  }
+}
+@media (min-width: 1024px) {
+  :host {
+    .cra__sub-menu{
+      align-self: center;
+      margin-right: 1rem;
+      margin-top: 1rem;
+
+    }
+    .cra__calendar {
+      width: 33%;
+    }
+
+    .cra__select {
+      width: 100%;
+      & mat-form-field{
+        min-width: 300px;
+      }
+    }
+  }
+}
+

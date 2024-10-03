@@ -1,0 +1,55 @@
+<div class="cra">
+  <div class="cra__sub-menu">
+
+    <div class="cra__select">
+      <mat-form-field>
+        <mat-label>Sélectionnez un agent spécial</mat-label>
+        <mat-select (valueChange)="changeAgent($event)">
+          @for (user of users(); track user.id) {
+            <mat-option [value]="user.id">{{ user.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="cra__radio">
+      <mat-radio-group
+        [(ngModel)]="radioValue"
+        aria-label="Select an option"
+      >
+        @for (value of radioValues; track value) {
+          <mat-radio-button [value]="value">{{ value }}</mat-radio-button>
+        }
+
+      </mat-radio-group>
+    </div>
+  </div>
+  <mat-card class="cra__calendar">
+
+    <mat-calendar
+
+      #calendar (selectedChange)="selectDates($event)"
+      [dateClass]="dateClass"
+      [maxDate]="this.maxDate"
+      [minDate]="this.minDate"
+      [startAt]="this.minDate"
+
+
+
+    >
+    </mat-calendar>
+
+    <div class="cra__calendar__box_container">
+      <div class="cra__calendar__box__with-text">
+        <div class="cra__calendar__box vacation"></div>
+        <span>Congés</span>
+      </div>
+      <div class="cra__calendar__box__with-text">
+        <div class="cra__calendar__box worked"></div>
+        <span>Mission</span>
+      </div>
+
+    </div>
+      <button (click)="saveDays()" mat-raised-button>Enregistrer</button>
+  </mat-card>
+
+</div>

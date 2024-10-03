@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  width: 100%;
+}
+
+body {
+  --primary: #383F51;
+  --secondary: #216869;
+  --tertiary: #49A078;
+  --quaternary: #9CC5A1;
+  --background: #DCE1DE;
+  --vacation: #AB9F9D;
+  --selected: #DDDBF1;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--background);
+}
+
+button.worked{
+  background: var(--tertiary);
+  border-radius: 100%;
+}
+button.vacation{
+  background: var(--vacation);
+  border-radius: 100%;
+}
+button.toSave{
+  background: var(--selected);
+  border-radius: 100%;
+}

@@ -1,0 +1,11 @@
+:host {
+  width: 100%;
+
+  .craPage {
+    display: flex;
+    flex-direction: column;
+
+
+  }
+
+}
