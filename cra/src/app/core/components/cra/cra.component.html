@@ -6,7 +6,7 @@
         <mat-label>Sélectionnez un agent spécial</mat-label>
         <mat-select (valueChange)="changeAgent($event)">
           @for (user of users(); track user.id) {
-            <mat-option [value]="user.id">{{ user.name }}</mat-option>
+            <mat-option [value]="user">{{ user.name }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -49,5 +49,6 @@
     </div>
       <button (click)="saveDays()" mat-raised-button>Enregistrer</button>
   </mat-card>
+
 
 </div>

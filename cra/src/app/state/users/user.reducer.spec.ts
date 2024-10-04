@@ -35,6 +35,6 @@ describe('User Selectors', () => {
       '1': users[0],
       '2': users[1],
     });
-// Assuming this property is included in the state, else modify accordingly
+
   });
 })
