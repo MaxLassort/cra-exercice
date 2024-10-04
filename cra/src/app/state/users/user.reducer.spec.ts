@@ -14,6 +14,7 @@ describe('User Selectors', () => {
         times: {
           vacationDays: new Set<string>(['2024-03-18T23:00:00.000Z']),
           dayWorkedSaved: new Set<string>(['2024-03-10T23:00:00.000Z']),
+          vacationCountDown: 6
         },
       },
       {
@@ -23,6 +24,7 @@ describe('User Selectors', () => {
         times: {
           vacationDays: new Set<string>(),
           dayWorkedSaved: new Set<string>(),
+          vacationCountDown: 7
         },
       },
     ];

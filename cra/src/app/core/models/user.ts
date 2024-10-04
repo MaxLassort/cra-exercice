@@ -9,5 +9,6 @@ export interface User {
 export interface Times {
   dayWorkedSaved:Set<string>
   vacationDays:Set<string>
+  vacationCountDown:number
 }
 

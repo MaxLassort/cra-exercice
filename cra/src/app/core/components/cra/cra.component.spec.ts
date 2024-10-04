@@ -105,7 +105,7 @@ describe('CraComponent', () => {
   });
   it('should update the active agent', () => {
     // Simuler la sélection des utilisateurs depuis le store
-    component.changeAgent(mockUsers[1]);
+    component.changeCurrentAgent(mockUsers[1]);
     expect(component.activeUser?.id).toBe("2")
 
   });

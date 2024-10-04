@@ -1,4 +1,4 @@
-import {Component, OnInit, Signal, viewChild} from '@angular/core';
+import {Component, Signal, viewChild} from '@angular/core';
 
 import {Observable} from "rxjs";
 
@@ -24,7 +24,8 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {FormsModule} from "@angular/forms";
 import {MatSelect} from "@angular/material/select";
-import {setUser, usersActions} from "../../../state/users/user.action";
+import {setUser} from "../../../state/users/user.action";
+import * as constants from "../../../state/constants";
 
 
 @Component({
@@ -72,7 +73,7 @@ export class CraComponent {
 
   daysToUpdate: Set<string> = new Set<string>();
 
-  displayError:boolean = false;
+  displayError: boolean = false;
 
 
   dateClass = (date: Date): string => {
@@ -119,40 +120,62 @@ export class CraComponent {
    */
   saveDays() {
     this.displayError = false
-    if(this.activeUser){
-      if (this.activeUser?.times.vacationDays.size + this.daysToUpdate.size >= 8 && this.radioValue === this.radioValues[1]) {
+    if (!this.activeUser) return;
+
+    // Préparer l'objet 'Times' à partir des données de l'utilisateur actif
+    let time: Times = {...this.activeUser.times,};
+
+    // Calcul du nombre total de jours de congé après mise à jour
+    const totalVacationDays = this.daysToUpdate.size + this.activeUser.times.vacationDays.size;
+
+    if (this.radioValue === this.radioValues[1] && !this.canTakeMoreVacationDays(totalVacationDays)) {
+      // pour valider le nombre de jour souhaité doit être inférieur à 7
         this.displayError = true;
         return
-      }
-      let time: Times = {
-        ...this.activeUser?.times
-      };
-      let toSave: string[] = [...this.daysToUpdate.values()];
-      const updatedUser:User = {
-        ...this.activeUser,
-        times: {...time}
-      };
-      // save to mission
-      if (this.radioValue == this.radioValues[0]) {
-        updatedUser.times.dayWorkedSaved = new Set([...this.activeUser?.times.dayWorkedSaved, ...toSave])
-      } else {
-        updatedUser.times.vacationDays = new Set([...this.activeUser?.times.vacationDays, ...toSave])
-      }
-        this.store.dispatch(setUser({user: updatedUser}))
-        this.calendar()?.updateTodaysDate();
-        this.changeAgent(updatedUser)
-      }
+    }
+    // Mise à jour du décompte des jours de congé restants si radio = congé
+    if (this.radioValue === this.radioValues[1]) {
+      time.vacationCountDown = this.calculateVacationCountDown(totalVacationDays);
+    }
+    // Préparer les jours à sauvegarder
+    let toSave: string[] = [...this.daysToUpdate.values()];
+
+    const updatedUser: User = {
+      ...this.activeUser,
+      times: {...time}
+    };
+    // Met à jour la mission et les jouts de congés
+    if (this.radioValue == this.radioValues[0]) {
+      updatedUser.times.dayWorkedSaved = new Set([...this.activeUser?.times.dayWorkedSaved, ...toSave])
+    } else {
+      updatedUser.times.vacationDays = new Set([...this.activeUser?.times.vacationDays, ...toSave])
+    }
+    this.store.dispatch(setUser({user: updatedUser}))
+    this.changeCurrentAgent(updatedUser)
+
   }
+
   /**
    * Fonction appelée lors du changement d'utilisateur (agent) dans la sélection ou de l'actualisation d'un utilisateur et nettoie le cache daysToUpdate
-   * @param event - L'ID de l'utilisateur sélectionné
+   * @param event - L'utilisateur sélectionné
    */
-  changeAgent(event: any) {
+  changeCurrentAgent(event: any) {
     this.activeUser = event
     this.daysToUpdate.clear();
     this.calendar()?.updateTodaysDate();
   }
 
+  /**
+   * Vérifie si l'utilisateur peut poser plus de jours de congé
+   */
+  private canTakeMoreVacationDays(totalVacationDays: number): boolean {
+    return totalVacationDays <= constants.VACATION_TO_TAKES;
+  }
 
-
+  /**
+   * Calcule le nouveau décompte des jours de congé restants
+   */
+  private calculateVacationCountDown(totalVacationDays: number): number {
+    return constants.VACATION_TO_TAKES - totalVacationDays;
+  }
 }

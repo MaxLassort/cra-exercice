@@ -4,7 +4,7 @@
     <div class="cra__select">
       <mat-form-field>
         <mat-label>Sélectionnez un agent spécial</mat-label>
-        <mat-select (valueChange)="changeAgent($event)">
+        <mat-select (valueChange)="changeCurrentAgent($event)">
           @for (user of users(); track user.id) {
             <mat-option [value]="user">{{ user.name }}</mat-option>
           }
@@ -24,6 +24,9 @@
     </div>
     @if (this.displayError){
         <span class="cra__error"> Les agents ne se reposent pas autant </span>
+    }
+    @if(this.activeUser) {
+      <span> Jour à poser : {{this.activeUser.times.vacationCountDown}}</span>
     }
   </div>
   <mat-card class="cra__calendar">
