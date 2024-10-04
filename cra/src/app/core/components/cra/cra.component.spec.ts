@@ -46,16 +46,14 @@ describe('CraComponent', () => {
 
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.dayWorkedSaved = new Set<string>(["2024-03-18T23:00:00.000Z"]);
-    component.vacationDays = new Set<string>(["2024-03-10T23:00:00.000Z"]);
     component.daysToUpdate = new Set<string>(["2024-01-10T23:00:00.000Z"])
     component.activeUser = {
       id: "1",
       name: "Alice Smith",
       username: "",
       times: {
-        vacationDays: new Set<string>(["2024-03-18T23:00:00.000Z"]),
-        dayWorkedSaved: new Set<string>(["2024-03-10T23:00:00.000Z"]),
+        vacationDays: new Set<string>(["2024-03-10T23:00:00.000Z"]),
+        dayWorkedSaved: new Set<string>(["2024-03-18T23:00:00.000Z"]),
       }
     }
 
@@ -66,8 +64,8 @@ describe('CraComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should add class to calendar', () => {
-    component.dayWorkedSaved = new Set<string>(["2024-03-18T23:00:00.000Z"]);
-    component.vacationDays = new Set<string>(["2024-03-10T23:00:00.000Z"]);
+
+
     component.daysToUpdate = new Set<string>(["2024-01-10T23:00:00.000Z"])
 
     const worked = component.dateClass(new Date("2024-03-18T23:00:00.000Z"));
@@ -87,7 +85,7 @@ describe('CraComponent', () => {
     component.selectDates(secondEvent);
 
     expect(component.daysToUpdate.has(firstEvent.toISOString())).toBeTruthy();
-    expect(component.vacationDays.has(firstEvent.toISOString())).toBeFalsy();
+    expect(component.activeUser?.times.vacationDays.has(firstEvent.toISOString())).toBeFalsy();
   });
   it('should update the worked days', () => {
     component.radioValue = component.radioValues[0];
@@ -95,7 +93,7 @@ describe('CraComponent', () => {
     let dateMock = new Date("2024-01-01T23:00:00.000Z")
     component.daysToUpdate.add(dateMock.toISOString())
     component.saveDays()
-    expect(component.dayWorkedSaved.has(dateMock.toISOString())).toBeTruthy()
+    expect(component.activeUser?.times.dayWorkedSaved.has(dateMock.toISOString())).toBeTruthy()
   });
   it('should update the vacation days', () => {
     component.radioValue = component.radioValues[1];
@@ -103,11 +101,11 @@ describe('CraComponent', () => {
     let dateMock = new Date("2024-01-01T23:00:00.000Z")
     component.daysToUpdate.add(dateMock.toISOString())
     component.saveDays()
-    expect(component.vacationDays.has(dateMock.toISOString())).toBeTruthy()
+    expect(component.activeUser?.times.vacationDays.has(dateMock.toISOString())).toBeTruthy()
   });
   it('should update the active agent', () => {
     // Simuler la sélection des utilisateurs depuis le store
-    component.changeAgent(2);
+    component.changeAgent(mockUsers[1]);
     expect(component.activeUser?.id).toBe("2")
 
   });
