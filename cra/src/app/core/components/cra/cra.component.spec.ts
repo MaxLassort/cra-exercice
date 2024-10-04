@@ -20,10 +20,14 @@ describe('CraComponent', () => {
       times: {
         vacationDays: new Set<string>(["2024-03-18T23:00:00.000Z"]),
         dayWorkedSaved: new Set<string>(["2024-03-10T23:00:00.000Z"]),
+        vacationCountDown: 0
       }
     },
     {
-      id: "2", name: 'User 2', times: {dayWorkedSaved: new Set(), vacationDays: new Set()},
+      id: "2", name: 'User 2', times: {
+        dayWorkedSaved: new Set(), vacationDays: new Set(),
+        vacationCountDown: 0
+      },
       username: ''
     }
   ];
@@ -54,6 +58,7 @@ describe('CraComponent', () => {
       times: {
         vacationDays: new Set<string>(["2024-03-10T23:00:00.000Z"]),
         dayWorkedSaved: new Set<string>(["2024-03-18T23:00:00.000Z"]),
+        vacationCountDown: 0
       }
     }
 
@@ -107,6 +112,29 @@ describe('CraComponent', () => {
     // Simuler la sélection des utilisateurs depuis le store
     component.changeCurrentAgent(mockUsers[1]);
     expect(component.activeUser?.id).toBe("2")
-
+  });
+  it('should set displayErrir to true if vacation days exceed limit', () => {
+    component.activeUser = {
+      id: "1",
+      name: "Alice Smith",
+      username: "",
+      times: {
+        vacationDays: new Set<string>(["2024-03-10T23:00:00.000Z"]),
+        dayWorkedSaved: new Set<string>(["2024-03-18T23:00:00.000Z"]),
+        vacationCountDown: 5
+      }
+    }
+    component.daysToUpdate = new Set([
+      '2024-03-01',
+      '2024-03-02',
+      '2024-03-03',
+      '2024-03-04',
+      '2024-03-05',
+      '2024-03-06',
+      '2024-03-07'
+    ]);
+    component.radioValue = component.radioValues[1];
+    component.saveDays();
+    expect(component.displayError).toBeTrue();
   });
 });
