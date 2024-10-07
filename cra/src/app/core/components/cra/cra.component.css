@@ -7,10 +7,16 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    & .cra__text{
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      text-align: start;
+      /*padding: 1rem;*/
+    }
     & .cra__error{
       color: red;
-      max-width: 100%;
-      text-align: center;
     }
   }
 

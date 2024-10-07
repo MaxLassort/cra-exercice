@@ -16,7 +16,6 @@ export const userReducer = createReducer(
     return adapter.setAll(users, state)
   }),
   on(UserActions.setUser, (state, { user }) => {
-    console.log(user, "reduceur")
     return adapter.setOne(user, state)
   }),
 );

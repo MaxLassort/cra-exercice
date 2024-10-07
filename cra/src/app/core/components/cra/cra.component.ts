@@ -26,6 +26,7 @@ import {FormsModule} from "@angular/forms";
 import {MatSelect} from "@angular/material/select";
 import {setUser} from "../../../state/users/user.action";
 import * as constants from "../../../state/constants";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 
 @Component({
@@ -50,7 +51,8 @@ import * as constants from "../../../state/constants";
     MatLabel,
     MatSelect,
     MatOption,
-    JsonPipe
+    JsonPipe,
+    MatCheckbox
   ],
   templateUrl: './cra.component.html',
   styleUrl: './cra.component.css',

@@ -2,7 +2,7 @@
   <div class="cra__sub-menu">
 
     <div class="cra__select">
-      <mat-form-field>
+      <mat-form-field >
         <mat-label>Sélectionnez un agent spécial</mat-label>
         <mat-select (valueChange)="changeCurrentAgent($event)">
           @for (user of users(); track user.id) {
@@ -22,14 +22,18 @@
 
       </mat-radio-group>
     </div>
-    @if (this.displayError){
-        <span class="cra__error"> Les agents ne se reposent pas autant </span>
-    }
-    @if(this.activeUser) {
-      <span> Jour à poser : {{this.activeUser.times.vacationCountDown}}</span>
-    }
+
+    <div class="cra__text">
+      @if (this.displayError){
+          <span class="cra__error"> Les agents ne se reposent pas autant </span>
+      }
+      @if(this.activeUser) {
+        <span> Jour à poser : {{this.activeUser.times.vacationCountDown}}</span>
+      }
+    </div>
   </div>
-  <mat-card class="cra__calendar">
+ 
+  <mat-card class="cra__calendar" >
 
     <mat-calendar
       #calendar (selectedChange)="selectDates($event)"
@@ -37,6 +41,7 @@
       [maxDate]="this.maxDate"
       [minDate]="this.minDate"
       [startAt]="this.minDate"
+
     >
     </mat-calendar>
 
