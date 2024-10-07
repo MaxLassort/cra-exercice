@@ -66,11 +66,16 @@
 
 
 }
-
+.cra__mat-calendar{
+  height: 250px;
+}
 @media (min-width: 425px) {
   .cra__calendar__box_container{
     flex-direction: row !important;
     justify-content: space-around;
+  }
+  .cra__mat-calendar{
+    height: 300px;
   }
 }
 
@@ -83,6 +88,7 @@
       padding: 1rem 0 0 1rem;
     }
 
+
     .cra__sub-menu {
       align-self: flex-start;
       margin-right: 1rem;
@@ -90,6 +96,9 @@
 
     .cra__calendar {
       width: 50%;
+    }
+    .cra__mat-calendar{
+      height: 350px;
     }
 
     .cra__select {
@@ -115,7 +124,9 @@
     .cra__calendar {
       width: 30%;
     }
-
+    .cra__mat-calendar{
+      height: 500px;
+    }
     .cra__select {
       width: 100%;
 
