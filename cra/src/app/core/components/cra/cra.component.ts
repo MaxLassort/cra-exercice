@@ -78,6 +78,8 @@ export class CraComponent {
   displayError: boolean = false;
 
 
+
+
   dateClass = (date: Date): string => {
 
     if (this.activeUser?.times.dayWorkedSaved.has(date.toISOString())) {
