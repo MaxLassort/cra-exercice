@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Cette application a été développée dans le cadre d'un exercice visant à explorer les fonctionnalités de **NgRx** pour la gestion d'état dans une application Angular. L'application permet à un utilisateur de gérer des informations liées aux congés et heures travaillées de 3 agents à l'aide d'un calendrier.
+Cette application a été développée dans le cadre d'un exercice visant à explorer les fonctionnalités de **NgRx** pour la gestion d'état dans une application Angular. L'application permet à un utilisateur de gérer des informations liées aux congés et heures travaillées de 3 agents à l'aide d'un calendrier. Le calendrier à un range prédéfinit, et la gestion du jour actuel n'est pas prise en compte
 
 ## Structure de l'application
 
