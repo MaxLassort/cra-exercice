@@ -1,14 +1,8 @@
-import {Component, Signal, viewChild} from '@angular/core';
-
-import {Observable} from "rxjs";
-
-import {Store} from "@ngrx/store";
+import {Component, inject, Signal, viewChild} from '@angular/core';
 import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
 
-import {AppState} from "../../../state/app.state";
+import {initialUserState} from "../../../state/app.state";
 import {Times, User} from "../../models/user";
-import {selectAllUsers} from "../../../state/users/user.selector";
-import {toSignal} from "@angular/core/rxjs-interop";
 import {MatCard} from "@angular/material/card";
 import {
   MatCalendar,
@@ -24,9 +18,9 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {FormsModule} from "@angular/forms";
 import {MatSelect} from "@angular/material/select";
-import {setUser} from "../../../state/users/user.action";
 import * as constants from "../../../state/constants";
 import {MatCheckbox} from "@angular/material/checkbox";
+import {UserStore} from "../../../state/users/user.store";
 
 
 @Component({
@@ -56,11 +50,14 @@ import {MatCheckbox} from "@angular/material/checkbox";
   ],
   templateUrl: './cra.component.html',
   styleUrl: './cra.component.css',
+  providers: [UserStore],
 
 
 })
 export class CraComponent {
-  users$: Observable<User[]>;
+  //User Store
+  userStore = inject(UserStore);
+
   users: Signal<User[]>
   activeUser: User | undefined;
 
@@ -97,9 +94,9 @@ export class CraComponent {
 
   calendar: Signal<MatCalendar<any> | undefined> = viewChild('calendar');
 
-  constructor(private store: Store<AppState>) {
-    this.users$ = this.store.select(selectAllUsers);
-    this.users = toSignal(this.users$, {initialValue: []});
+  constructor() {
+    this.userStore.addAll(initialUserState)
+    this.users = this.userStore.entities
 
   }
 
@@ -154,7 +151,7 @@ export class CraComponent {
     } else {
       updatedUser.times.vacationDays = new Set([...this.activeUser?.times.vacationDays, ...toSave])
     }
-    this.store.dispatch(setUser({user: updatedUser}))
+    this.userStore.setUser(updatedUser)
     this.changeCurrentAgent(updatedUser)
 
   }

@@ -1,16 +1,14 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CraComponent} from './cra.component';
-import {provideStore, Store} from "@ngrx/store";
-import {userReducer} from "../../../state/users/user.reducer";
+
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {User} from "../../models/user";
-import {of} from "rxjs";
+import {UserStore} from "../../../state/users/user.store";
 
 describe('CraComponent', () => {
   let component: CraComponent;
   let fixture: ComponentFixture<CraComponent>;
-  let store: Store;
 
   const mockUsers: User[] = [
     {
@@ -37,15 +35,12 @@ describe('CraComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CraComponent],
       providers: [
-        provideStore({
-          users: userReducer
-        }),
         provideAnimations()
       ]
     })
       .compileComponents();
-    store = TestBed.inject(Store);
-    spyOn(store, 'select').and.returnValue(of(mockUsers))
+    // store = TestBed.inject(Store);
+    // spyOn(store, 'select').and.returnValue(of(mockUsers))
     fixture = TestBed.createComponent(CraComponent);
 
     component = fixture.componentInstance;
@@ -136,5 +131,12 @@ describe('CraComponent', () => {
     component.radioValue = component.radioValues[1];
     component.saveDays();
     expect(component.displayError).toBeTrue();
+  });
+  it('should verify that three movies are available', () => {
+
+
+    const store = TestBed.inject(UserStore);
+
+    expect(store.entities().length).toBe(0);
   });
 });

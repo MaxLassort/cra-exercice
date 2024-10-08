@@ -1,9 +1,6 @@
-import {UserState} from "./users/user.reducer";
 import {User} from "../core/models/user";
 
-export interface AppState {
-  users:UserState
-}
+
 export const initialUserState:User[] = [{
     id:"1",
     name: "Alice Smith",
