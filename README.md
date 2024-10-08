@@ -8,6 +8,11 @@ Cette application a été développée dans le cadre d'un exercice visant à exp
 
 L'application utilise **NgRx** pour gérer l'état de l'application via un store centralisé.
 
+- **Branch SignalStore** : Cette branche contient une version de l'application utilisant le Signal Store de NgRx.
+- **Branch main** : Dans cette version, seule une implémentation classique est présente, sans utilisation du Signal Store.
+- Dans cette application, je n'utilise pas de modules Angular classiques, mais plutôt des composants standalone. Cela permet une plus grande flexibilité et une meilleure réutilisation des composants, réduisant ainsi le couplage entre les différentes parties de l'application.
+
+
 ## Stockage des données
 
 Il est important de noter que les données de l'application ne sont pas enregistrées sur un backend, ou sur un simulateur d'API de type JSON Server. Au lieu de cela, elles sont stockées en mémoire dans le store NgRx. Cela signifie qu'aucun appel API n'est effectué pour récupérer ou sauvegarder les données.
